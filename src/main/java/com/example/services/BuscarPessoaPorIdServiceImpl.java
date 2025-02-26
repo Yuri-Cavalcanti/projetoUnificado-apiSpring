@@ -16,13 +16,7 @@ public class BuscarPessoaPorIdServiceImpl {
 	private PessoaRepository pessoaRepository;
 
 	public Pessoa buscarPorId(Long id) throws PessoaNotFoundException {
-		Optional<Pessoa> optionalPessoa = getOptional(id);
-		Pessoa pessoa = null;
-		if (!optionalPessoa.isPresent()) {
-			throw new PessoaNotFoundException("Pessoa nao encontrado atraves do ID: " + id);
-		} else {
-			pessoa = optionalPessoa.get();
-		}
+		Pessoa pessoa = pessoaRepository.findById(id).orElseThrow(() -> new PessoaNotFoundException("Pessoa nao encontrado atraves do ID: " + id));
 		return pessoa;
 	}
 
@@ -32,13 +26,8 @@ public class BuscarPessoaPorIdServiceImpl {
 	}
 
 	public void deletarPorId(Long id) throws PessoaNotFoundException {
-		Optional<Pessoa> optionalPessoa = getOptional(id);
-		if (!optionalPessoa.isPresent()) {
-			throw new PessoaNotFoundException("Pessoa nao encontrado atraves do ID: " + id);
-		} else {
-			pessoaRepository.delete(optionalPessoa.get());
-		}
-
+		Pessoa pessoa = pessoaRepository.findById(id).orElseThrow(() -> new PessoaNotFoundException("Pessoa nao encontrado atraves do ID: " + id));
+		pessoaRepository.delete(pessoa);
 	}
 
 }

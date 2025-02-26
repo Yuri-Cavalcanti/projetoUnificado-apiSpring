@@ -22,7 +22,7 @@ public class ConversorPessoa {
 			pessoa.setIdade(resource.getIdade());
 			return pessoa;
 		}catch (Exception e) {
-			throw new PessoaResourceException("Falha ao converter o resource para entidade, resouce:"+ resource);
+			throw new PessoaResourceException("Falha ao converter o resource para entidade, resouce:"+ resource +" - "+e.getMessage());
 		}
 	}
 	
@@ -35,7 +35,7 @@ public class ConversorPessoa {
 			pessoa.setIdade(resource.getIdade());
 			return pessoa;
 		}catch (Exception e) {
-			throw new PessoaResourceException("Falha ao converter o resource para entidade, resouce:"+ resource);
+			throw new PessoaResourceException("Falha ao converter o resource para entidade, resouce:"+ resource+" - "+e.getMessage());
 		}
 	}
 

@@ -4,16 +4,15 @@ import org.springframework.stereotype.Component;
 
 import com.example.datasource.model.Pessoa;
 import com.example.datasource.model.Tarefa;
-import com.example.exceptions.PessoaResourceException;
 import com.example.exceptions.TarefaNotFoundException;
-import com.example.resource.model.PessoaResource;
+import com.example.exceptions.TarefaResourceException;
 import com.example.resource.model.TarefaResource;
 
 @Component
 public class ConversorTarefa {
 	
 	
-	public Tarefa conversor (TarefaResource resource) throws TarefaNotFoundException {
+	public Tarefa conversor (TarefaResource resource) throws TarefaResourceException {
 		try {
 			Tarefa tarefa = new Tarefa();
 			Pessoa pessoa = new Pessoa();
@@ -22,11 +21,11 @@ public class ConversorTarefa {
 			tarefa.setDescricao(resource.getDescricao());
 			return tarefa;
 		}catch (Exception e) {
-			throw new TarefaNotFoundException("Falha ao converter o resource para entidade, resouce:"+ resource);
+			throw new TarefaResourceException("Falha ao converter o resource para entidade, resouce:"+ resource+" - "+e.getMessage());
 		}
 	}
 	
-	public Tarefa conversor (TarefaResource resource, Long id) throws TarefaNotFoundException {
+	public Tarefa conversor (TarefaResource resource, Long id) throws TarefaResourceException {
 		try {
 			Tarefa tarefa = new Tarefa();
 			Pessoa pessoa = new Pessoa();
@@ -36,7 +35,7 @@ public class ConversorTarefa {
 			tarefa.setDescricao(resource.getDescricao());
 			return tarefa;
 		}catch (Exception e) {
-			throw new TarefaNotFoundException("Falha ao converter o resource para entidade, resouce:"+ resource);
+			throw new TarefaResourceException("Falha ao converter o resource para entidade, resouce:"+ resource+" - "+e.getMessage());
 		}
 	}
 

@@ -36,7 +36,7 @@ public class TarefaController {
 	private CadastrarTarefaServiceImpl cadastrarTarefaServiceImpl;
 	
 	@GetMapping("/pegarTarefa")//caminho da api
-	  public List<Tarefa> getTarefa() {
+	  public List<Tarefa> getTarefa() throws TarefaNotFoundException{
 	    return buscarTodasTarefas.getTodasTarefas();
 	  }
 	
@@ -46,7 +46,7 @@ public class TarefaController {
 	  }
 	
 	@PostMapping(path = "/guardarTarefa/save")
-	  public void salvarTarefa(@RequestBody TarefaResource tarefa) {
+	  public void salvarTarefa(@RequestBody TarefaResource tarefa) throws TarefaCouldNotCreateException {
 		try {
 		  cadastrarTarefaServiceImpl.cadastro(tarefa);
 		}catch (Exception e) {
@@ -55,8 +55,8 @@ public class TarefaController {
 		
 	  }
 	
-	@PatchMapping(path = "/guardarTarefa/save/{id}")
-	  public void updateTarefa(@RequestBody TarefaResource tarefa, @PathVariable(name = "id", required = true) Long id) {
+	@PatchMapping(path = "/guardarTarefa/save/{id}") 
+	  public void updateTarefa(@RequestBody TarefaResource tarefa, @PathVariable(name = "id", required = true) Long id) throws TarefaCouldNotCreateException {
 		cadastrarTarefaServiceImpl.cadastro(tarefa, id);
 	 }
 	

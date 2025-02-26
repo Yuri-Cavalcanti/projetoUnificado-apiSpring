@@ -17,29 +17,13 @@ public class BuscarTarefaPorIdServiceImpl {
 	
 	
 	public Tarefa buscarPorId(Long id) throws TarefaNotFoundException {
-		Optional<Tarefa> optionalTarefa = getOptional(id);
-		Tarefa tarefa = null;
-		if (!optionalTarefa.isPresent()) {
-			throw new TarefaNotFoundException("Tarefa nao encontrado atraves do ID: " + id);
-		} else {
-			tarefa = optionalTarefa.get();
-		}
+		Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(() -> new TarefaNotFoundException("Tarefa nao encontrado atraves do ID: " + id));
 		return tarefa;
-	}
-
-	private Optional<Tarefa> getOptional(Long id) {
-		Optional<Tarefa> optionalTarefa = tarefaRepository.findById(id);
-		return optionalTarefa;
 	}
 	
 	public void deletarPorId(Long id) throws TarefaNotFoundException {
-		Optional<Tarefa> optionalTarefa = getOptional(id);
-		if (!optionalTarefa.isPresent()) {
-			throw new TarefaNotFoundException("Tarefa nao encontrado atraves do ID: " + id);
-		} else {
-			tarefaRepository.delete(optionalTarefa.get());
-		}
-
+		Tarefa tarefa = tarefaRepository.findById(id).orElseThrow(() -> new TarefaNotFoundException("Tarefa nao encontrado atraves do ID: " + id));
+		tarefaRepository.delete(tarefa);
 	}
 
 }

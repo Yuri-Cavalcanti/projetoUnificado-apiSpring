@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.datasource.model.Pessoa;
+import com.example.exceptions.PessoaCouldNotCreateException;
 import com.example.exceptions.PessoaNotFoundException;
 import com.example.exceptions.TarefaNotFoundException;
 import com.example.resource.model.PessoaResource;
@@ -46,12 +47,12 @@ public class PessoaController {
 	  }
 	
 	@PostMapping(path = "/guardarPessoa/save")
-	  public void salvarTarefa(@RequestBody PessoaResource pessoa) {
+	  public void salvarTarefa(@RequestBody PessoaResource pessoa) throws PessoaCouldNotCreateException {
 		cadastrarPessoaServiceImpl.cadastro(pessoa);
 	  }
 	
 	@PatchMapping(path = "/guardarPessoa/save/{id}")
-	  public void updateTarefa(@RequestBody PessoaResource pessoa, @PathVariable(name = "id", required = true) Long id) {
+	  public void updateTarefa(@RequestBody PessoaResource pessoa, @PathVariable(name = "id", required = true) Long id) throws PessoaCouldNotCreateException {
 		cadastrarPessoaServiceImpl.cadastro(pessoa, id);
 	 }
 	
